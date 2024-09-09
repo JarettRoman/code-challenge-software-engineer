@@ -1,0 +1,30 @@
+{
+  "name": "npr/softwarechallenge",
+  "description": "SoftwareEngineer Mid challenge for Consumer Network Services team",
+  "autoload": {
+    "psr-4": {
+      "SoftwareChallenge\\Mid\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Jared Biehler",
+      "email": "jbiehler@npr.org"
+    }
+  ],
+  "require": {
+    "php": "~8.2",
+    "slim/slim": "^4.13",
+    "slim/psr7": "^1.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.1"
+  },
+  "scripts": {
+    "unit": "./vendor/bin/phpunit tests",
+    "start": [
+      "Composer\\Config::disableProcessTimeout",
+      "php -S localhost:8080"
+      ]
+  }
+}
