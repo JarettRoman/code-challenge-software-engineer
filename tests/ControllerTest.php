@@ -11,9 +11,14 @@ use Exception;
 
 class ControllerTest extends TestCase
 {
+    private function getMockProvider(): Provider
+    {
+        return $this->createMock(Provider::class);
+    }
+
     public function testNewUserCreationForValidRequest(): void
     {
-        $providerMock = $this->createMock(Provider::class);
+        $providerMock = $this->getMockProvider();
         $providerMock->method('saveUser')->willReturn(true);
 
         $user = (new Controller($providerMock))->createUser('{"id":1,"email":"a"}');
@@ -25,14 +30,14 @@ class ControllerTest extends TestCase
     {
         $this->expectException(JsonException::class);
 
-        $mockProvider = $this->createMock(Provider::class);
+        $mockProvider = $this->getMockProvider();
 
         (new Controller($mockProvider))->createUser('invalid-json');
     }
 
     public function testRecordDonationAttempt(): void
     {
-        $mockProvider = $this->createMock(Provider::class);
+        $mockProvider = $this->getMockProvider();
 
         $testUser = new User('test123', 'test@example.com');
 
@@ -63,7 +68,7 @@ class ControllerTest extends TestCase
 
     public function testRecordDonationAttemptWithNullUserId(): void
     {
-        $mockProvider = $this->createMock(Provider::class);
+        $mockProvider = $this->getMockProvider();
         $controller = new Controller($mockProvider);
 
         $this->expectException(Exception::class);
@@ -74,7 +79,7 @@ class ControllerTest extends TestCase
 
     public function testRecordDonationAttemptWithNonExistentUser(): void
     {
-        $mockProvider = $this->createMock(Provider::class);
+        $mockProvider = $this->getMockProvider();
         $mockProvider->method('getUser')->willReturn(null);
 
         $controller = new Controller($mockProvider);
