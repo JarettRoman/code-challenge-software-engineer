@@ -80,7 +80,9 @@ class Provider
 
         $users[$user->getId()] = $user->jsonSerialize();
 
-        return @file_put_contents($file, json_encode($users)) !== false;
+        $fileContents = json_encode($users, JSON_PRETTY_PRINT);
+
+        return @file_put_contents($file, $fileContents) !== false;
     }
 
     private function getDataStoreFile(): string
